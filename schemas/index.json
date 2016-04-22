@@ -1,0 +1,40 @@
+{
+  "schema": {
+    "title": {
+      "type": "Select",
+      "options": [
+        "Mr",
+        "Mrs",
+        "Ms"
+      ]
+    },
+    "name": {
+      "type": "Text",
+      "validators": [
+        "required"
+      ]
+    },
+    "age": {
+      "type": "Number"
+    }
+  },
+  "fieldsets": [
+    {
+      "legend": "Name",
+      "fields": "title, name, age",
+      "buttons": [
+        {
+          "label": "Cancel",
+          "action": "cancel",
+          "type": "reset",
+          "buttonClass": "btn"
+        },
+        {
+          "label": "Submit",
+          "action": "submit",
+          "buttonClass": "btn btn-primary"
+        }
+      ]
+    }
+  ]
+}
