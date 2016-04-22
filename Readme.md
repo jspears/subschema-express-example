@@ -1,6 +1,6 @@
 Subschema express-example
 ===
-
+***DO NOT USE JUST GETTING STARTED***
 
 ##Demo
 See it in action [here]()
@@ -98,3 +98,6 @@ Or run it
 
   
 ```
+
+[see](https://github.com/webpack/react-webpack-server-side-example/tree/master/server)
+[see](https://github.com/RickWong/react-isomorphic-starterkit)
