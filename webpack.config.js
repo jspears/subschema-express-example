@@ -33,6 +33,8 @@ var config = {
         reasons: true
     },
     module: {
+        exprContextRegExp: /$^/,
+        exprContextCritical: false,
         loaders: [
             {
                 test: /\.jsx?$/,

@@ -1,6 +1,12 @@
 var config = require('./webpack.config'), path = require('path'), join = path.join.bind(path, __dirname);
 var webpack = require('webpack');
 var nodeExternals = require("webpack-node-externals");
+var externals = [nodeExternals({
+    whitelist: ["webpack/hot/poll?1000"]
+})
+];
+
+console.log('externals', externals);
 
 module.exports = Object.assign({}, config, {
     entry: [
@@ -36,10 +42,7 @@ module.exports = Object.assign({}, config, {
         __dirname: true,
         __filename: true
     },
-    externals: [nodeExternals({
-        whitelist: ["webpack/hot/poll?1000"],
-        schemas: join('schemas')
-    })],
+    externals: externals,
     plugins: [
         new webpack.DefinePlugin({__CLIENT__: false, __SERVER__: true, __PRODUCTION__: true, __DEV__: false}),
         new webpack.DefinePlugin({"process.env": {NODE_ENV: '"production"'}}),

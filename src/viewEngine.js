@@ -1,29 +1,17 @@
 var shush = require('shush');
+var server = require('./render/server');
 
-module.exports = function (filePath, options, callback) { // define the template engine
-
-    console.log('filepath', filePath);
-    if (module.hot) {
+module.exports = function (ctx) {
+    console.log('keys', ctx.keys().join('\n'))
+    return function (filePath, options, callback) {
+        console.log('filePath', filePath);
         // accept update of dependency
-
-        module.hot.accept("./render/server", function () {
-            // replace request handler of server
-            const func = require("./render/server");
-
-            module.hot.accept(filePath, function () {
-
-                var obj = Object.assign({}, options, {
-                    schema: options.schema || require(filePath)
-                });
-                func(obj);
-            })
-        });
-    } else {
-        /* try {
-         var ret = require('./build/server');
-         callback(null, ret(obj));
-         } catch (e) {
-         callback(e);
-         }*/
+        const fp = filePath.replace(/.*\/schemas\//, './');
+        const schema = options.schema || ctx(fp);
+        var obj = Object.assign({
+            schema: schema
+        }, options);
+        var html = server(obj);
+        callback(null, html);
     }
 }

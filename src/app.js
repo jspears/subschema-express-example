@@ -1,15 +1,17 @@
 "use strict";
 var express = require('express');
 var app = express();
-var shush = require('shush');
+var ctx = require.context('../schemas', true, /\.json$/);
+var viewEngine = require('./viewEngine')(ctx);
+
 console.log('starting server');
-app.set('views', './schemas');
+app.set('views', '../schemas');
 app.set('view engine', 'json');
-app.engine('json', require('./viewEngine'));
+app.engine('json', viewEngine);
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', function (req, res) {
-    res.render('index');
+    res.render('index', {title:"Hello HMR World"});
 });
 
 app.listen(3000, function () {
